@@ -43,12 +43,12 @@ func TestGetPokemonInfo(t *testing.T) {
 		},
 	}
 
-	response := pokemon_domain.PokemonInfoResponse{
+	expectedResponse := pokemon_domain.PokemonInfoResponse{
 		Name:        "charizard",
 		Description: flavourTextList,
 	}
 
-	b, err := json.Marshal(response)
+	b, err := json.Marshal(expectedResponse)
 	assert.Nil(t, err)
 	assert.NotNil(t, b)
 
@@ -65,7 +65,8 @@ func TestGetPokemonInfo(t *testing.T) {
 
 	actualResponse, errorResponse := PokemonProvider.GetPokemonInfo(pokemon_domain.PokemonInfoRequest{Name: "doesn't matter"})
 	assert.Nil(t, errorResponse)
-	assert.EqualValues(t, response.Name, actualResponse.Name)
+	assert.NotNil(t, actualResponse)
+	assert.EqualValues(t, expectedResponse.Name, actualResponse.Name)
 	for textIndex := range flavourTextList {
 		assert.EqualValues(t, flavourTextList[textIndex].Text, actualResponse.Description[textIndex].Text)
 		assert.EqualValues(t, flavourTextList[textIndex].Language.Name, actualResponse.Description[textIndex].Language.Name)

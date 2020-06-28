@@ -22,7 +22,7 @@ type pokemonProviderInterface interface {
 }
 
 var (
-	//PokemonProvider used to mock the provider in test
+	//PokemonProvider is used to mock the provider in test
 	PokemonProvider pokemonProviderInterface = &pokemonProvider{}
 )
 
