@@ -56,7 +56,7 @@ PokemonName: contains the name of the pokemon
 ```json
 {
 	"name":"the name of the requested pokemon",
-	"description":"the description of the requested pokemon in Shakespear's style"
+	"description":"the pokemon_domain of the requested pokemon in Shakespear's style"
 }
 ```
 e.g.
@@ -99,5 +99,5 @@ go test ./... -run Integration
 
 ### Dependant APIs
 The proposed solution is dependant on two main APIs as mentioned below:
-[PokeAPI](https://pokeapi.co/docs/v2) : which has a 300 requests limit per resource per IP address
-[Shakespeare Translator](https://funtranslations.com/api/shakespeare) : which has a 5 requests limit per hour
+- [PokeAPI](https://pokeapi.co/docs/v2) : which has a 300 requests limit per resource per IP address
+- [Shakespeare Translator](https://funtranslations.com/api/shakespeare) : which has a 5 requests limit per hour
