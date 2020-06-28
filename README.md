@@ -15,6 +15,7 @@ e.g:
 
 ## Assumptions
 * The requested pokemon exists in the PokeAPI ([pokeapi.co pokemon list](https://pokeapi.co/api/v2/pokemon/?limit=1000))
+* Only the most updated description of the pokemon in english is required.
 
 ## Decisions
 
@@ -29,7 +30,7 @@ e.g:
 ### How run the api:
 To pull the docker image from DockerHub, please run the below command
 ```
-docker run --rm -p 8080:8080 sam195/shakespearianpokemon:stable
+docker run --rm -p 8080:8080 sam195/shakespeareanpokemonapi:latest
 ```
 The API will run on ```http://localhost:8080/``` the usage is described in the "Usage" section of this README.
 
@@ -91,7 +92,7 @@ go test ./... -short
 ### Integration tests
 The integration tests test calls between the Shakespearean Pokemon API and the external APIs, for example, this is done to check whether the external application has changed request formats
 
-Open terminal in the root of the project
+Open terminal in the root of the project, If these are run, the limit of translation requests (defined in the Dependant APIs section below) will be reached.
 
 ```
 go test ./... -run Integration

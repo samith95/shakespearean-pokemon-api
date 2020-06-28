@@ -19,7 +19,7 @@ type TranslationRequest struct {
 //		}
 //	}
 type TranslationResponse struct {
-	Content ContentFields
+	Content ContentFields `json:"contents"`
 }
 
 type ContentFields struct {

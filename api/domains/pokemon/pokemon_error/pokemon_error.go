@@ -6,6 +6,7 @@ import (
 
 type PokemonErrorInterface interface {
 	Status() int
+	Message() string
 }
 
 type PokemonError struct {

@@ -38,7 +38,7 @@ func (t *translationService) GetShakespeareanPokemonTranslation(request shksprea
 	translationRequest := translation_domain.TranslationRequest{}
 
 	//get the most recent description form the pokemon info response
-	for i := len(pokemonInfoResp.Description) - 1; i <= 0; i-- {
+	for i := len(pokemonInfoResp.Description) - 1; i >= 0; i-- {
 		if pokemonInfoResp.Description[i].Language.Name == "en" {
 			translationRequest.Text = pokemonInfoResp.Description[i].Text
 			break
@@ -51,11 +51,13 @@ func (t *translationService) GetShakespeareanPokemonTranslation(request shksprea
 		return nil, shksprean_pokemon_error.New(translationErrorResp.Status(), translationErrorResp.Message())
 	}
 
-	//generate the client response
-	return &shksprean_pokemon_domain.ShakespeareanPokemonResponse{
+	response := &shksprean_pokemon_domain.ShakespeareanPokemonResponse{
 		Name:        request.Name,
 		Translation: translationResp.Content.Translation,
-	}, nil
+	}
+
+	//generate the client response
+	return response, nil
 }
 
 func validateRequestFields(request shksprean_pokemon_domain.ShakespeareanPokemonRequest) (shksprean_pokemon_domain.ShakespeareanPokemonRequest, error) {

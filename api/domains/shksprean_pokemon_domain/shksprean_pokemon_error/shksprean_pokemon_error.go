@@ -1,5 +1,7 @@
 package shksprean_pokemon_error
 
+import "encoding/json"
+
 type ShkspreanPokemonErrorInterface interface {
 	Status() int
 	Message() string
@@ -29,4 +31,12 @@ func New(statusCode int, message string) ShkspreanPokemonErrorInterface {
 			Message: message,
 		},
 	}
+}
+
+func NewApiErrorFromBytes(body []byte) (ShkspreanPokemonErrorInterface, error) {
+	var result ShkspreanPokemonError
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
 }

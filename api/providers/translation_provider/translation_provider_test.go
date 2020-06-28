@@ -128,7 +128,7 @@ func TestGetShakespeareanTranslationInvalidResponseInterface(t *testing.T) {
 											"total": 1
 										},
 										"contents": {
-											"translated": 999999999999999999999999,
+											"translated": ["wrong","type",],
 											"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 											"translation": "shakespeare"
 										}
@@ -142,7 +142,7 @@ func TestGetShakespeareanTranslationInvalidResponseInterface(t *testing.T) {
 	assert.Nil(t, actualResponse)
 	assert.NotNil(t, errorResponse)
 	assert.EqualValues(t,
-		"error when trying to unmarshal translation response from API: invalid character 'T' looking for beginning of value",
+		"error when trying to unmarshal translation response from API: invalid character ']' looking for beginning of value",
 		errorResponse.Error.Message)
 	assert.EqualValues(t, http.StatusBadRequest, errorResponse.Error.Code)
 }

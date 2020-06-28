@@ -8,9 +8,10 @@ import (
 
 func TestNew(t *testing.T) {
 	expectedError := PokemonError{
-		Code: 400,
+		Code:         400,
+		ErrorMessage: "bad request",
 	}
-	actualError := New(expectedError.Code)
+	actualError := New(expectedError.Code, expectedError.ErrorMessage)
 	assert.EqualValues(t, &expectedError, actualError)
 }
 
@@ -27,4 +28,6 @@ func TestPokemonError(t *testing.T) {
 	assert.Nil(t, err)
 
 	assert.EqualValues(t, expectedError.Status(), actualError.Status())
+	assert.EqualValues(t, expectedError.Message(), actualError.Message())
+
 }

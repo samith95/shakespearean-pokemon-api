@@ -6,13 +6,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	url2 "net/url"
 	"shakespearing-pokemon/api/clients/restclient"
 	"shakespearing-pokemon/api/domains/translation/translation_domain"
 	"shakespearing-pokemon/api/domains/translation/translation_error"
+	"strings"
 )
 
 const (
-	shakeSpeareTranslationUrl = "https://api.funtranslations.com/translate/shakespeare.json?text=\"%s\""
+	shakespeareTranslationUrl = "https://api.funtranslations.com/translate/shakespeare.json?text=\"%s\""
 )
 
 type translationProvider struct{}
@@ -27,7 +29,7 @@ var (
 )
 
 func (t *translationProvider) GetShakespeareanTranslation(request translation_domain.TranslationRequest) (*translation_domain.TranslationResponse, *translation_error.TranslationError) {
-	url := fmt.Sprintf(shakeSpeareTranslationUrl, request.Text)
+	url := fmt.Sprintf(shakespeareTranslationUrl, url2.QueryEscape(strings.Replace(request.Text, "\n", "", -1)))
 	bytes, errorResponse := getResults(url)
 	if errorResponse != nil {
 		return nil, errorResponse
@@ -39,6 +41,9 @@ func (t *translationProvider) GetShakespeareanTranslation(request translation_do
 	if errorResponse != nil {
 		return nil, errorResponse
 	}
+
+	//remove trailing escaped inverted commas
+	result.Content.Translation = strings.Replace(result.Content.Translation, "\"", "", -1)
 
 	return &result, nil
 }
