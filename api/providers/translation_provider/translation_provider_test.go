@@ -161,6 +161,6 @@ func TestGetShakespeareanTranslationIntegration(t *testing.T) {
 	actualResponse, errorResponse := TranslationProvider.GetShakespeareanTranslation(request)
 	assert.Nil(t, errorResponse)
 	if actualResponse.Content.Translation == "" {
-		assert.Fail(t, "translation from API is empty, there is a hard 5 requests per hour deadline on this service")
+		assert.Fail(t, "translation from API is empty")
 	}
 }

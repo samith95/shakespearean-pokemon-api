@@ -67,6 +67,13 @@ func checkResponseBody(response *http.Response) ([]byte, *pokemon_error.PokemonE
 	}
 
 	if response.StatusCode > 299 {
+		//catch non-existent pokemon error
+		if response.StatusCode == 404 {
+			errorResponse := &pokemon_error.PokemonError{}
+			errorResponse.Code = http.StatusNotFound
+			errorResponse.ErrorMessage = "pokemon not found"
+			return nil, errorResponse
+		}
 		errorResponse := &pokemon_error.PokemonError{}
 		errorResponse.Code = http.StatusInternalServerError
 		errorResponse.ErrorMessage = "error from external api"
